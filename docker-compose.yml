@@ -1,12 +1,12 @@
 version: "3.9"
 services:
-
-  rabbit-mq:
-    image: PREFERED_REGISTRY/bacme-rabbit-mq:test
-    hostname: "TEST_rabbit-mq.{{.Task.Slot}}.{{.Task.ID}}.TEST_default"
+  rabbitmq:
+    image: acme-rabbit-mq:test
+    hostname: "rabbitmq.{{.Task.Slot}}.{{.Task.ID}}"
     deploy:
       replicas: 3
       placement:
         max_replicas_per_node: 1
     environment:
+      - RABBITMQ_NODENAME=rabbit@rabbitmq.{{.Task.Slot}}.{{.Task.ID}}
       - RABBITMQ_ERLANG_COOKIE=supersecretcookievalue
